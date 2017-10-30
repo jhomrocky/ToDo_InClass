@@ -44,7 +44,17 @@
             @Html.DisplayFor(modelItem => item.ItemDetails)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsDone)
+            @*Code for showing checked/unchecked in cshtml (controller code required also)*@
+            <a href="@Url.Action("ToggleDone", new { id=item.ItemID })">
+                @if(item.IsDone)
+                {
+                    <span class="glyphicon glyphicon-check"></span>
+                }
+                else
+                {
+                    <span class="glyphicon glyphicon-unchecked"></span>
+                }
+            </a>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ItemID }) |

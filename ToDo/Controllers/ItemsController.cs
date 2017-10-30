@@ -61,8 +61,35 @@ namespace ToDo.Controllers
             return View(item);
         }
 
+        // GET: Items/ToggleDone/5
+        public ActionResult ToggleDone(int? id)  //pulls from database to get item info
+        {
+            if (id == null) //checks to see if id is entered
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Item item = db.Items.Find(id); //if id was entered, pulls id from db
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+            if (item.IsDone) //item.IsDone = true = box checked
+            {
+                item.IsDone = false;
+            }
+            else
+            {
+                item.IsDone = true;
+            }
+            db.SaveChanges();
+
+            return RedirectToAction("Index"); //"refreshes" page to now show a changed checkbox
+                                              //for isdone
+        }
+
+
         // GET: Items/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id)  //pulls from database to get item info
         {
             if (id == null)
             {
